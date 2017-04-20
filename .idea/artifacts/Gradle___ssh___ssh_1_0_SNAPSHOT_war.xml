@@ -6,6 +6,12 @@
     </properties>
     <root id="archive" name="ssh-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="Gradle : ssh : ssh-1.0-SNAPSHOT.war (exploded)" />
+      <element id="javaee-facet-resources" facet="ssh/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ssh" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
