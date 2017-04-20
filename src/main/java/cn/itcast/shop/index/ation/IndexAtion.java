@@ -2,6 +2,8 @@ package cn.itcast.shop.index.ation;
 
 import cn.itcast.shop.category.service.CategoryService;
 import cn.itcast.shop.category.vo.CategoryEntity;
+import cn.itcast.shop.product.service.ProductService;
+import cn.itcast.shop.product.vo.ProductEntity;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
@@ -22,14 +24,27 @@ public class IndexAtion extends ActionSupport{
         this.categoryService = categoryService;
     }
 
+    //注入热门商品service
+    private ProductService productService;
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
     /**
      * 执行的访问首页的方法
      * @return
      */
     public String execute(){
+        //查询所有一级分类
         List<CategoryEntity> cList =  categoryService.findAll();
         //将一级分类存入到session
         ActionContext.getContext().getSession().put("cList",cList);
+
+        //查询热门商品
+        List<ProductEntity> pList =  productService.findHot();
+        //保存到值栈中
+        ActionContext.getContext().getValueStack().set("pList",pList);
         return "index";
     }
 }

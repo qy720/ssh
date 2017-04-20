@@ -61,7 +61,8 @@
     <!--Action的配置-->
     <!--首页访问的Action-->
     <bean id="indexAction" class="cn.itcast.shop.index.ation.IndexAtion" scope="prototype">
-        <property name="categoryService" ref="categoryService"></property>
+        <property name="categoryService" ref="categoryService"/>
+        <property name="productService" ref="productService"/>
     </bean>
     <!--用户模块的Action-->
     <bean id="userAction" class="cn.itcast.shop.user.action.UserAction" scope="prototype">
@@ -71,11 +72,13 @@
     <bean id="checkImgAction" class="cn.itcast.shop.user.action.CheckImgAction" scope="prototype"></bean>
     <!--Service的配置-->
     <bean id="userService" class="cn.itcast.shop.user.service.UserServiceImpl">
-        <!--注入dao-->
         <property name="userDao" ref="userDao"/>
     </bean>
     <bean id="categoryService" class="cn.itcast.shop.category.service.CategoryServiceImpl">
         <property name="categoryDao" ref="categoryDao"></property>
+    </bean>
+    <bean id="productService" class="cn.itcast.shop.product.service.ProductServiceImpl">
+        <property name="productDao" ref="productDao"/>
     </bean>
 
     <!--Dao的配置-->
@@ -83,6 +86,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="categoryDao" class="cn.itcast.shop.category.dao.CategoryDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="productDao" class="cn.itcast.shop.product.dao.ProductDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>
