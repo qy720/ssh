@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 配置连接池 -->
+    <!--引入外部属性文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--配置C3P0连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 设置数据库连接池的最大连接数 -->
+        <property name="maxPoolSize" value="20"/>
+        <!-- 设置数据库连接池的最小连接数 -->
+        <property name="minPoolSize" value="2"/>
+        <!-- 设置数据库连接池的初始化连接数 -->
+        <property name="initialPoolSize" value="2"/>
+        <!-- 设置数据库连接池的连接的最大空闲时间,单位为秒 -->
+        <property name="maxIdleTime" value="20"/>
+    </bean>
+    <!--Hibernate相关信息-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!--注入连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置Hibernate的其他的属性-->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/shop</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+        <!--配置Hibernate的映射文件-->
+        <!--注入形式-->
+        <!--<property name="mappingResources">
+            <list>
+                <value>classpath:cn/itcast/shop/user/vo/UserEntity.hbm.xml</value>
+            </list>
+        </property>-->
+        <!--<property name="cacheableMappingLocations">
+            <list>
+                <value>classpath*:cn/itcast/shop/user/vo</value>
+            </list>
+        </property>-->
+        <!--注解形式-->
+        <!--<property name="packagesToScan" value="cn.itcast.shop.user.vo"/>-->
+        <property name="annotatedClasses">
+            <list>
+                <value>cn.itcast.shop.user.vo.UserEntity</value>
+                <value>cn.itcast.shop.category.vo.CategoryEntity</value>
+            </list>
+        </property>
+    </bean>
+    <!--配置事物管理-->
+    <!--事物管理器-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--开启注解事物-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--Action的配置-->
+    <!--首页访问的Action-->
+    <bean id="indexAction" class="cn.itcast.shop.index.ation.IndexAtion" scope="prototype">
+        <property name="categoryService" ref="categoryService"></property>
+    </bean>
+    <!--用户模块的Action-->
+    <bean id="userAction" class="cn.itcast.shop.user.action.UserAction" scope="prototype">
+        <!--注入Service-->
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean id="checkImgAction" class="cn.itcast.shop.user.action.CheckImgAction" scope="prototype"></bean>
+    <!--Service的配置-->
+    <bean id="userService" class="cn.itcast.shop.user.service.UserServiceImpl">
+        <!--注入dao-->
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="categoryService" class="cn.itcast.shop.category.service.CategoryServiceImpl">
+        <property name="categoryDao" ref="categoryDao"></property>
+    </bean>
+
+    <!--Dao的配置-->
+    <bean id="userDao" class="cn.itcast.shop.user.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="categoryDao" class="cn.itcast.shop.category.dao.CategoryDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>
