@@ -44,24 +44,9 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
-        <!--配置Hibernate的映射文件-->
-        <!--注入形式-->
-        <!--<property name="mappingResources">
+        <property name="packagesToScan">
             <list>
-                <value>classpath:cn/itcast/shop/user/vo/UserEntity.hbm.xml</value>
-            </list>
-        </property>-->
-        <!--<property name="cacheableMappingLocations">
-            <list>
-                <value>classpath*:cn/itcast/shop/user/vo</value>
-            </list>
-        </property>-->
-        <!--注解形式-->
-        <!--<property name="packagesToScan" value="cn.itcast.shop.user.vo"/>-->
-        <property name="annotatedClasses">
-            <list>
-                <value>cn.itcast.shop.user.vo.UserEntity</value>
-                <value>cn.itcast.shop.category.vo.CategoryEntity</value>
+                <value>cn.itcast.shop.*</value>
             </list>
         </property>
     </bean>
