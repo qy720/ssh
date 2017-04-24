@@ -2,6 +2,7 @@ package cn.itcast.shop.product.dao;
 
 import cn.itcast.shop.product.vo.ProductEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
@@ -14,8 +15,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/4/20.
  */
-public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
-
+public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao{
+    /**
+     * 查询热门商品
+     * @return
+     */
     @Override
     public List<ProductEntity> findHot() {
         Session session = getSessionFactory().openSession();
@@ -33,6 +37,10 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         return list;
     }
 
+    /**
+     * 查询最新商品
+     * @return
+     */
     @Override
     public List<ProductEntity> findNew() {
         Session session = getSessionFactory().openSession();
@@ -43,5 +51,20 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         List<ProductEntity> list = criteria.list();
         session.close();
         return list;
+    }
+
+    /**
+     * 商品详情
+     * @param pid 商品id
+     * @return
+     */
+    @Override
+    public ProductEntity findByPid(Integer pid) {
+        String hql = "from ProductEntity where pid=?";
+        Session session = getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter(0,pid);
+        List<ProductEntity> list = query.list();
+        return list.get(0);
     }
 }

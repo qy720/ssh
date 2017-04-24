@@ -72,7 +72,9 @@
     <!--验证码模块Action-->
     <bean id="checkImgAction" class="cn.itcast.shop.user.action.CheckImgAction" scope="prototype"></bean>
     <!--商品详情-->
-    <bean id="prouctAction" class="cn.itcast.shop.product.action.ProductAction" scope="prototype"></bean>
+    <bean id="prouctAction" class="cn.itcast.shop.product.action.ProductAction" scope="prototype">
+        <property name="productService" ref="productService"/>
+    </bean>
     <!--Service的配置-->
     <bean id="userService" class="cn.itcast.shop.user.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>

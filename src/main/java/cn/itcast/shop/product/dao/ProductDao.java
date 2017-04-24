@@ -11,4 +11,6 @@ public interface ProductDao {
     public List<ProductEntity> findHot();
 
     public List<ProductEntity> findNew();
+
+    public ProductEntity findByPid(Integer pid);
 }

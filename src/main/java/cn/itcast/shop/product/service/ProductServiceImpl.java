@@ -27,4 +27,9 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductEntity> findNew() {
         return productDao.findNew();
     }
+
+    @Override
+    public ProductEntity findByPid(Integer pid) {
+        return productDao.findByPid(pid);
+    }
 }

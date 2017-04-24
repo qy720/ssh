@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ModelDriven;
  */
 public class ProductAction extends ActionSupport implements ModelDriven<ProductEntity> {
     private ProductEntity productEntity;
+
     public ProductEntity getModel() {
         return productEntity;
     }
@@ -22,7 +23,7 @@ public class ProductAction extends ActionSupport implements ModelDriven<ProductE
 
     //根据商品的ID查询商品的方法
     public String fiandByPid(){
-
-        return NONE;
+        productEntity = productService.findByPid(productEntity.getPid());
+        return "findByPid";
     }
 }

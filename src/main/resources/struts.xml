@@ -34,8 +34,8 @@
         <!--验证码-->
         <action name="checkImg" class="checkImgAction"></action>
         <!--商品模块的action-->
-        <action name="poduct_*" class="prouctAction" method="{1}">
-
+        <action name="product_*" class="prouctAction" method="{1}">
+            <result name="findByPid">/jsp/product.jsp</result>
         </action>
     </package>
 
