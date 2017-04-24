@@ -1,16 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page  contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>网上商城</title>
     <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/product.css" rel="stylesheet" type="text/css">
-
-
 </head>
 <body>
-
 <div class="container header">
     <div class="span5">
         <div class="logo">
