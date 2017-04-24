@@ -65,6 +65,9 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao{
         Query query = session.createQuery(hql);
         query.setParameter(0,pid);
         List<ProductEntity> list = query.list();
-        return list.get(0);
+        if(list != null && list.size()>0){
+            return list.get(0);
+        }
+        return null;
     }
 }

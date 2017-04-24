@@ -22,8 +22,9 @@ public class ProductAction extends ActionSupport implements ModelDriven<ProductE
     }
 
     //根据商品的ID查询商品的方法
-    public String fiandByPid(){
-        productEntity = productService.findByPid(productEntity.getPid());
+    public String findByPid(){
+        int id = productEntity.getPid();
+        productEntity = productService.findByPid(id);
         return "findByPid";
     }
 }
