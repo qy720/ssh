@@ -1,6 +1,7 @@
 package cn.itcast.shop.product.dao;
 
 import cn.itcast.shop.product.vo.ProductEntity;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
@@ -17,17 +18,29 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
     @Override
     public List<ProductEntity> findHot() {
-        //使用离线条件查询
-        DetachedCriteria criteria = DetachedCriteria.forClass(ProductEntity.class);
+        Session session = getSessionFactory().openSession();
+        Criteria criteria = session.createCriteria(ProductEntity.class);
         //查询热门的商品
         criteria.add(Restrictions.eq("is_hot",1));
         //倒序输出
         criteria.addOrder(Order.desc("pdate"));
-        //执行查询
+        //查询出十条数据
+        criteria.setFirstResult(0);
+        criteria.setMaxResults(10);
+        //执行查询,并存储到list
+        List<ProductEntity> list = criteria.list();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public List<ProductEntity> findNew() {
         Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        List<ProductEntity> list = criteria.getExecutableCriteria(session).list();
-        transaction.commit();
+        Criteria criteria = session.createCriteria(ProductEntity.class);
+        criteria.addOrder(Order.desc("pdate"));
+        criteria.setFirstResult(0);
+        criteria.setMaxResults(10);
+        List<ProductEntity> list = criteria.list();
         session.close();
         return list;
     }

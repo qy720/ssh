@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ProductDao {
     public List<ProductEntity> findHot();
+
+    public List<ProductEntity> findNew();
 }

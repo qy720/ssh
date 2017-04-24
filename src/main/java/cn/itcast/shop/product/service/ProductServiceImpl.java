@@ -22,4 +22,9 @@ public class ProductServiceImpl implements ProductService{
     public List<ProductEntity> findHot() {
         return productDao.findHot();
     }
+
+    @Override
+    public List<ProductEntity> findNew() {
+        return productDao.findNew();
+    }
 }

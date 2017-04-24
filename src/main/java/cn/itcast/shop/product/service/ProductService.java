@@ -10,4 +10,6 @@ import java.util.List;
 public interface ProductService {
 
    public List<ProductEntity> findHot();
+
+   public List<ProductEntity> findNew();
 }
