@@ -1,6 +1,8 @@
 package cn.itcast.shop.category.vo;
 
 import cn.itcast.shop.categorysecond.vo.CategorySecondEntity;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,7 +16,8 @@ import java.util.Set;
 public class CategoryEntity {
     private int cid;
     private String cname;
-    @OneToMany(mappedBy = "cid")
+    @OneToMany(mappedBy = "categoryEntity")
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<CategorySecondEntity> categorySecondEntities = new HashSet<CategorySecondEntity>();
 
     public Set<CategorySecondEntity> getCategorySecondEntities() {

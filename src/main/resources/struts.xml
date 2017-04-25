@@ -36,6 +36,7 @@
         <!--商品模块的action-->
         <action name="product_*" class="productAction" method="{1}">
             <result name="findByPid">/jsp/product.jsp</result>
+            <result name="findByCid">/jsp/productList.jsp</result>
         </action>
     </package>
 

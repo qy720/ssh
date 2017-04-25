@@ -8,14 +8,14 @@ import javax.persistence.*;
  * Created by Administrator on 2017/4/25.
  */
 @Entity
-@Table(name = "categorysecond",schema = "shop")
+@Table(name = "categorysecond",schema = "shop",catalog = "")
 public class CategorySecondEntity {
     @Id
     @Column(name = "csid")
     private Integer csid;
     @Column(name = "csname")
     private String csname;
-    @ManyToOne(targetEntity = CategoryEntity.class)
+    @ManyToOne(targetEntity = CategoryEntity.class)//一对多关联关系
     @JoinColumn(name = "cid")
     private CategoryEntity categoryEntity;
 
