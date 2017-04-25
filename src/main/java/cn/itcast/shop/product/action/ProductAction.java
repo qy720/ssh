@@ -10,7 +10,15 @@ import com.opensymphony.xwork2.ModelDriven;
  * Created by Administrator on 2017/4/20.
  */
 public class ProductAction extends ActionSupport implements ModelDriven<ProductEntity> {
-    private ProductEntity productEntity;
+    private ProductEntity productEntity = new ProductEntity();
+
+    public ProductEntity getProductEntity() {
+        return productEntity;
+    }
+
+    public void setProductEntity(ProductEntity productEntity) {
+        this.productEntity = productEntity;
+    }
 
     public ProductEntity getModel() {
         return productEntity;
