@@ -16,7 +16,7 @@ import java.util.Set;
 public class CategoryEntity {
     private int cid;
     private String cname;
-    @OneToMany(mappedBy = "categoryEntity")
+    /*@OneToMany(mappedBy = "categoryEntity")
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<CategorySecondEntity> categorySecondEntities = new HashSet<CategorySecondEntity>();
 
@@ -26,7 +26,7 @@ public class CategoryEntity {
 
     public void setCategorySecondEntities(Set<CategorySecondEntity> categorySecondEntities) {
         this.categorySecondEntities = categorySecondEntities;
-    }
+    }*/
 
     @Id
     @Column(name = "cid")
