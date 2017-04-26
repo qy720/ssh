@@ -15,8 +15,8 @@ public class CategorySecondEntity {
     private Integer csid;
     @Column(name = "csname")
     private String csname;
-    @ManyToOne(targetEntity = CategoryEntity.class)//一对多关联关系
-    @JoinColumn(name = "cid")
+    @ManyToOne(targetEntity =CategoryEntity.class,cascade={CascadeType.ALL})//一对多关联关系
+    @JoinColumn(name = "cid",updatable = false)
     private CategoryEntity categoryEntity;
 
     public Integer getCsid() {

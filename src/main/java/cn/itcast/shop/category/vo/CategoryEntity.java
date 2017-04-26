@@ -1,6 +1,8 @@
 package cn.itcast.shop.category.vo;
 
 import cn.itcast.shop.categorysecond.vo.CategorySecondEntity;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -14,22 +16,18 @@ import java.util.Set;
 @Entity
 @Table(name = "category", schema = "shop", catalog = "")
 public class CategoryEntity {
-    private int cid;
-    private String cname;
-    /*@OneToMany(mappedBy = "categoryEntity")
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<CategorySecondEntity> categorySecondEntities = new HashSet<CategorySecondEntity>();
-
-    public Set<CategorySecondEntity> getCategorySecondEntities() {
-        return categorySecondEntities;
-    }
-
-    public void setCategorySecondEntities(Set<CategorySecondEntity> categorySecondEntities) {
-        this.categorySecondEntities = categorySecondEntities;
-    }*/
-
     @Id
     @Column(name = "cid")
+    private int cid;
+
+    @Column(name = "cname")
+    private String cname;
+
+    @OneToMany(targetEntity = CategorySecondEntity.class,cascade=CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "cid",updatable = false)
+    private Set<CategorySecondEntity> categorySecondEntities = new HashSet<CategorySecondEntity>();
+
     public int getCid() {
         return cid;
     }
@@ -38,8 +36,6 @@ public class CategoryEntity {
         this.cid = cid;
     }
 
-    @Basic
-    @Column(name = "cname")
     public String getCname() {
         return cname;
     }
@@ -48,23 +44,11 @@ public class CategoryEntity {
         this.cname = cname;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CategoryEntity that = (CategoryEntity) o;
-
-        if (cid != that.cid) return false;
-        if (cname != null ? !cname.equals(that.cname) : that.cname != null) return false;
-
-        return true;
+    public Set<CategorySecondEntity> getCategorySecondEntities() {
+        return categorySecondEntities;
     }
 
-    @Override
-    public int hashCode() {
-        int result = cid;
-        result = 31 * result + (cname != null ? cname.hashCode() : 0);
-        return result;
+    public void setCategorySecondEntities(Set<CategorySecondEntity> categorySecondEntities) {
+        this.categorySecondEntities = categorySecondEntities;
     }
 }
