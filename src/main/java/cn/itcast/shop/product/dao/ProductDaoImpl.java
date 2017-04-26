@@ -97,6 +97,7 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao{
     @Override
     public List<ProductEntity> findByPageCid(Integer cid, int begin, int limit) {
         String hql = "select p from ProductEntity p join p.categorySecondEntity cs join cs.categoryEntity c where cid=?";
+
         return null;
     }
 }
