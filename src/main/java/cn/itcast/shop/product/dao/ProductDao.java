@@ -13,4 +13,8 @@ public interface ProductDao {
     public List<ProductEntity> findNew();
 
     public ProductEntity findByPid(Integer pid);
+
+    public int findCountCid(Integer cid);
+
+    public List<ProductEntity> findByPageCid(Integer cid, int begin, int limit);
 }

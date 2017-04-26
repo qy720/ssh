@@ -33,7 +33,7 @@
                     <dt>
                         <a href="${pageContext.request.contextPath}/image/蔬菜 - Powered By Mango Team.htm"><s:property value="#c.cname"/></a>
                     </dt>
-                    <s:iterator var="cs" value="#c.categorySeconds">
+                    <s:iterator var="cs" value="#c.categorySecondEntities">
                         <dd>
                             <a ><s:property value="#cs.csname"/></a>
                         </dd>

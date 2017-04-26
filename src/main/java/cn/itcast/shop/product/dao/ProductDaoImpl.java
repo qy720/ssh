@@ -4,8 +4,6 @@ import cn.itcast.shop.product.vo.ProductEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -68,6 +66,37 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao{
         if(list != null && list.size()>0){
             return list.get(0);
         }
+        return null;
+    }
+
+    /**
+     * 根据分类id查询商品的个数
+     * @param cid
+     * @return
+     */
+    @Override
+    public int findCountCid(Integer cid) {
+        String hql = "select count(*) from ProductEntity p where p.categorySecondEntity.categoryEntity.cid=?";
+        Session session = getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter(0,cid);
+        List<Long> list =query.list();
+        if(list != null && list.size()>0){
+            return list.get(0).intValue();
+        }
+        return 0;
+    }
+
+    /**
+     * 根据分类id查询商品的集合
+     * @param cid
+     * @param begin
+     * @param limit
+     * @return
+     */
+    @Override
+    public List<ProductEntity> findByPageCid(Integer cid, int begin, int limit) {
+        String hql = "select p from ProductEntity p join p.categorySecondEntity cs join cs.categoryEntity c where cid=?";
         return null;
     }
 }

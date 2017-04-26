@@ -26,6 +26,7 @@ public class CategoryEntity {
     @OneToMany(targetEntity = CategorySecondEntity.class,cascade=CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "cid",updatable = false)
+    @OrderBy("csid")
     private Set<CategorySecondEntity> categorySecondEntities = new HashSet<CategorySecondEntity>();
 
     public int getCid() {

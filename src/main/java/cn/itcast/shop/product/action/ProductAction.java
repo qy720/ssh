@@ -4,6 +4,7 @@ import cn.itcast.shop.category.service.CategoryService;
 import cn.itcast.shop.category.vo.CategoryEntity;
 import cn.itcast.shop.product.service.ProductService;
 import cn.itcast.shop.product.vo.ProductEntity;
+import cn.itcast.shop.utils.PageUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -14,6 +15,12 @@ import java.util.List;
  * Created by Administrator on 2017/4/20.
  */
 public class ProductAction extends ActionSupport implements ModelDriven<ProductEntity> {
+    //接受当前页数
+    private int page;
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     private ProductEntity productEntity = new ProductEntity();
 
@@ -55,7 +62,7 @@ public class ProductAction extends ActionSupport implements ModelDriven<ProductE
 
     //根据分类的id查询商品
     public String findByCid(){
-
+        PageUtils<ProductEntity> pageUtils = productService.findByPageCid(cid,page);//根据一级分类查询商品，带分页的查询
         return "findByCid";
     }
 

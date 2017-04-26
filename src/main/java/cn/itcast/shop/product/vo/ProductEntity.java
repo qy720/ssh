@@ -1,9 +1,8 @@
 package cn.itcast.shop.product.vo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import cn.itcast.shop.categorysecond.vo.CategorySecondEntity;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -30,7 +29,17 @@ public class ProductEntity {
     @Column(name = "pdate")
     public Date pdate;
     //二级分类的外键:使用二级分类的对象
+    @ManyToOne(targetEntity = CategorySecondEntity.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "csid",updatable = false)
+    private CategorySecondEntity categorySecondEntity;
 
+    public CategorySecondEntity getCategorySecondEntity() {
+        return categorySecondEntity;
+    }
+
+    public void setCategorySecondEntity(CategorySecondEntity categorySecondEntity) {
+        this.categorySecondEntity = categorySecondEntity;
+    }
 
     public Integer getPid() {
         return pid;
