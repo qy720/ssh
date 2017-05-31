@@ -5,6 +5,7 @@ import cn.itcast.shop.category.vo.CategoryEntity;
 import cn.itcast.shop.product.service.ProductService;
 import cn.itcast.shop.product.vo.ProductEntity;
 import cn.itcast.shop.utils.PageUtils;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -29,7 +30,6 @@ public class ProductAction extends ActionSupport implements ModelDriven<ProductE
     }
     //接受一级分类的cid
     private Integer cid;
-
     public void setCid(Integer cid) {
         this.cid = cid;
     }
@@ -63,6 +63,8 @@ public class ProductAction extends ActionSupport implements ModelDriven<ProductE
     //根据分类的id查询商品
     public String findByCid(){
         PageUtils<ProductEntity> pageUtils = productService.findByPageCid(cid,page);//根据一级分类查询商品，带分页的查询
+        //将PageUtils存入到值栈中
+        ActionContext.getContext().getValueStack().set("pageUtil",pageUtils);
         return "findByCid";
     }
 

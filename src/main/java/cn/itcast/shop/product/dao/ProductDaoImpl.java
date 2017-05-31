@@ -1,6 +1,7 @@
 package cn.itcast.shop.product.dao;
 
 import cn.itcast.shop.product.vo.ProductEntity;
+import cn.itcast.shop.utils.PageHibernateCallback;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -83,7 +84,10 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao{
     @Override
     public List<ProductEntity> findByPageCid(Integer cid, int begin, int limit) {
         String hql = "select p from ProductEntity p join p.categorySecondEntity cs join cs.categoryEntity c where cid=?";
-
+        List<ProductEntity> list = this.getHibernateTemplate().execute(new PageHibernateCallback<ProductEntity>(hql,new Object[]{cid},begin,limit));
+        if(list != null && list.size()>0){
+            return list;
+        }
         return null;
     }
 }
