@@ -4,7 +4,7 @@ import cn.itcast.shop.user.vo.UserEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.List;
 
@@ -15,16 +15,20 @@ import java.util.List;
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
     //按照名称查询是否有该用户
     public UserEntity findByUsername(String username){
-        String hql = "from UserEntity where username=?";
-        Session session = getSessionFactory().openSession();
+       String hql = "from UserEntity where username=?";
+        /*Session session = getSessionFactory().openSession();
         Query query = session.createQuery(hql);
         query.setParameter(0,username);
         List<UserEntity> list = query.list();
         if(list != null && list.size()>0){
             return list.get(0);
         }
+        return null;*/
+        List<UserEntity> list = (List<UserEntity>) getHibernateTemplate().find(hql,username);
+        if(list != null && list.size()>0){
+            return list.get(0);
+        }
         return null;
-
     }
 
     /**
@@ -33,11 +37,12 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
      */
     @Override
     public void save(UserEntity userEntity) {
-        Session session = getSessionFactory().openSession();
+        /*Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(userEntity);
         transaction.commit();
-        session.close();
+        session.close();*/
+        this.getHibernateTemplate().save(userEntity);
     }
 
     /**
@@ -48,10 +53,11 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
     @Override
     public UserEntity findByCode(String code) {
         String hql = "from UserEntity where code=?";
-        Session session = getSessionFactory().openSession();
+        /*Session session = getSessionFactory().openSession();
         Query query = session.createQuery(hql);
         query.setParameter(0,code);
-        List<UserEntity> list = query.list();
+        List<UserEntity> list = query.list();*/
+        List<UserEntity> list = (List<UserEntity>) this.getHibernateTemplate().find(hql,code);
         if(list != null && list.size()>0){
             return list.get(0);
         }
@@ -64,11 +70,12 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
      */
     @Override
     public void update(UserEntity existUser) {
-        Session session = getSessionFactory().openSession();
+        /*Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(existUser);
         tx.commit();
-        session.close();
+        session.close();*/
+        this.getHibernateTemplate().update(existUser);
     }
 
     /**
@@ -79,12 +86,12 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
     @Override
     public UserEntity login(UserEntity user) {
         String hql = "from UserEntity where username=? and password=? and state=?";
-        Session session = getSessionFactory().openSession();
+        /*Session session = getSessionFactory().openSession();
         Query query = session.createQuery(hql);
         query.setParameter(0,user.getUsername());
         query.setParameter(1,user.getPassword());
-        query.setParameter(2,1);
-        List<UserEntity> list = query.list();
+        query.setParameter(2,1);*/
+        List<UserEntity> list = (List<UserEntity>) this.getHibernateTemplate().find(hql,user.getName(),user.getPassword(),1);
         if(list != null && list.size()>0){
             return list.get(0);
         }
