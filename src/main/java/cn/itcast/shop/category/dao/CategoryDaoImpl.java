@@ -3,7 +3,7 @@ package cn.itcast.shop.category.dao;
 import cn.itcast.shop.category.vo.CategoryEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.List;
 
@@ -18,9 +18,7 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     @Override
     public List<CategoryEntity> findAll() {
         String hql = "from CategoryEntity";
-        Session session = getSessionFactory().openSession();
-        Query query = session.createQuery(hql);
-        List<CategoryEntity> list = query.list();
+        List<CategoryEntity> list = (List<CategoryEntity>) this.getHibernateTemplate().find(hql);
         if(list != null && list.size()>0){
             return list;
         }
