@@ -6,9 +6,6 @@ import cn.itcast.shop.product.service.ProductService;
 import cn.itcast.shop.product.vo.ProductEntity;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 
 import java.util.List;
 

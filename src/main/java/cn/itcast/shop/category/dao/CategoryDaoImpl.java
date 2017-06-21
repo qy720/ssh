@@ -1,8 +1,6 @@
 package cn.itcast.shop.category.dao;
 
 import cn.itcast.shop.category.vo.CategoryEntity;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.List;
